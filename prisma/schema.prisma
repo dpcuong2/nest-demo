@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ProjectList {
+  projectid          String    @id(map: "projectlist_pk") @db.VarChar
+  projectname        String?   @db.VarChar
+  projecttype        String?   @db.VarChar
+  publlishsetting    Int?
+  startday           DateTime? @db.Timestamp(6)
+  endday             DateTime? @db.Timestamp(6)
+  created_date       Int?
+  updated_date       Int?
+  created_by_user_id Int?
+  updated_by_userid  Int?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model TemplateList {
+  template_id        String?   @db.VarChar
+  template_name      String?   @db.VarChar
+  template_type      String?   @db.VarChar
+  publish_flag       Int?
+  created_at         DateTime? @db.Timestamp(6)
+  updated_at         DateTime? @db.Timestamp(6)
+  created_by_user_id Int?
+  updated_by_user_id Int?
+
+  @@ignore
+}
+
+model User {
+  user_id    Int       @id
+  email      String?   @db.VarChar(200)
+  password   String?   @db.VarChar
+  name       String?   @db.VarChar
+  create_at  DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+}
