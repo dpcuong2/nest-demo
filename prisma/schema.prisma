@@ -7,38 +7,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ProjectList {
-  projectid          String    @id(map: "projectlist_pk") @db.VarChar
-  projectname        String?   @db.VarChar
-  projecttype        String?   @db.VarChar
-  publlishsetting    Int?
-  startday           DateTime? @db.Timestamp(6)
-  endday             DateTime? @db.Timestamp(6)
-  created_date       Int?
-  updated_date       Int?
-  created_by_user_id Int?
-  updated_by_userid  Int?
+model Posts {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  body      String
+  userId    Int
+  createdAt DateTime @db.Timestamptz(6) @default(now())
+  updatedAt DateTime @db.Timestamptz(6) @updatedAt
+  Users     Users    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model TemplateList {
-  template_id        String?   @db.VarChar
-  template_name      String?   @db.VarChar
-  template_type      String?   @db.VarChar
-  publish_flag       Int?
-  created_at         DateTime? @db.Timestamp(6)
-  updated_at         DateTime? @db.Timestamp(6)
-  created_by_user_id Int?
-  updated_by_user_id Int?
-
-  @@ignore
+model Users {
+  id        Int               @id @default(autoincrement())
+  name      String            @db.VarChar(255)
+  email     String            @unique @db.VarChar(255)
+  password  String            @db.VarChar(255)
+  gender    enum_Users_gender
+  createdAt DateTime          @db.Timestamptz(6) @default(now())
+  updatedAt DateTime          @db.Timestamptz(6) @updatedAt
+  Posts     Posts[]
 }
 
-model User {
-  user_id    Int       @id
-  email      String?   @db.VarChar(200)
-  password   String?   @db.VarChar
-  name       String?   @db.VarChar
-  create_at  DateTime? @db.Timestamp(6)
-  updated_at DateTime? @db.Timestamp(6)
+enum enum_Users_gender {
+  male
+  female
 }

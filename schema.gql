@@ -1,0 +1,88 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """id of the user"""
+  id: Int!
+
+  """name of the user"""
+  name: String!
+
+  """email of the user"""
+  email: String!
+
+  """hashed password of the user"""
+  password: String!
+
+  """gender of the user"""
+  gender: String!
+}
+
+type Post {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  user(id: Int!): User!
+  posts: [Post!]!
+  post(id: Int!): Post!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+}
+
+input CreateUserInput {
+  """name of the user"""
+  name: String!
+
+  """email of the user"""
+  email: String!
+
+  """hashed password of the user"""
+  password: String!
+
+  """gender of the user"""
+  gender: String!
+}
+
+input UpdateUserInput {
+  """name of the user"""
+  name: String
+
+  """email of the user"""
+  email: String
+
+  """hashed password of the user"""
+  password: String
+
+  """gender of the user"""
+  gender: String
+
+  """id of the user"""
+  id: Int!
+}
+
+input CreatePostInput {
+  """title of the post"""
+  title: String!
+
+  """body of the post"""
+  body: String!
+}
+
+input UpdatePostInput {
+  """title of the post"""
+  title: String
+
+  """body of the post"""
+  body: String
+  id: Int!
+}
