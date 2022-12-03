@@ -7,5 +7,4 @@ export class CreatePostInput {
   title: string;
   @Field(() => String, { description: 'body of the post' })
   body: string;
-  user: User;
 }

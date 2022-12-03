@@ -1,30 +1,31 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entities';
-import { CreateUserInput } from './dto/create-user.input';
+import { User as UserDecorator } from './user.decorator';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UserResponse } from './dto/user.response';
+import { Post } from '../posts/entities/post.entity';
+import { JwtGraphqlAuthGuard } from 'src/core/guard/jwtGraphQLAuthGuard.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
-  }
-
-  @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.findOne(id);
-  }
-
-  @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
-  }
-
-  @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.remove(id);
+  @UseGuards(JwtGraphqlAuthGuard)
+  @Mutation(() => UserResponse)
+  updateUser(
+    @UserDecorator() user,
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+  ) {
+    return this.usersService.update(user, updateUserInput);
   }
 }

@@ -1,0 +1,143 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  """id of the post"""
+  id: Int!
+
+  """title of the post"""
+  title: String!
+
+  """body of the post"""
+  body: String!
+
+  """create timestamp of the post"""
+  createdAt: String!
+
+  """last updated timestamp of the post"""
+  updatedAt: String!
+
+  """user of the post"""
+  user: User!
+}
+
+type User {
+  """id of the user"""
+  id: Int!
+
+  """name of the user"""
+  name: String!
+
+  """email of the user"""
+  email: String!
+
+  """hashed password of the user"""
+  password: String!
+
+  """gender of the user"""
+  gender: String!
+
+  """created time stamp of the user"""
+  createdAt: String!
+
+  """updated time of the user"""
+  updatedAt: String!
+
+  """list post created by user"""
+  Posts: [Post!]!
+}
+
+type UserResponse {
+  """id of the user"""
+  id: Int!
+
+  """name of the user"""
+  name: String!
+
+  """email of the user"""
+  email: String!
+
+  """gender of the user"""
+  gender: String!
+
+  """created time stamp of the user"""
+  createdAt: String!
+
+  """updated time of the user"""
+  updatedAt: String!
+
+  """list post created by user"""
+  Posts: [Post!]!
+
+  """generated jwt token of user"""
+  token: String
+}
+
+type Query {
+  posts: [Post!]!
+  AllPosts: [Post!]!
+  post(id: Int!): Post!
+}
+
+type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): UserResponse!
+  register(createUserInput: CreateUserInput!): UserResponse!
+  login(loginInput: LoginUserInput!): UserResponse!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+}
+
+input UpdateUserInput {
+  """name of the user"""
+  name: String
+
+  """email of the user"""
+  email: String
+
+  """hashed password of the user"""
+  password: String
+
+  """gender of the user"""
+  gender: String
+}
+
+input CreateUserInput {
+  """name of the user"""
+  name: String!
+
+  """email of the user"""
+  email: String!
+
+  """hashed password of the user"""
+  password: String!
+
+  """gender of the user"""
+  gender: String!
+}
+
+input LoginUserInput {
+  """email of the user"""
+  email: String!
+
+  """hashed password of the user"""
+  password: String!
+}
+
+input CreatePostInput {
+  """title of the post"""
+  title: String!
+
+  """body of the post"""
+  body: String!
+}
+
+input UpdatePostInput {
+  """title of the post"""
+  title: String
+
+  """body of the post"""
+  body: String
+  id: Int!
+}

@@ -3,6 +3,8 @@ import { User } from 'src/module/users/entities/user.entities';
 
 @ObjectType()
 export class Post {
+  @Field(() => Int, { description: 'id of the post' })
+  id: number;
   @Field(() => String, { description: 'title of the post' })
   title: string;
   @Field(() => String, { description: 'body of the post' })
